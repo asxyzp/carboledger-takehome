@@ -36,6 +36,8 @@
   .navigation-layout {
     max-width: 100%;
     padding: 10px;
-    margin: 0px 0px 10px;
+  }
+  .navigation-layout-header {
+    margin-top: 5px;
   }
 }
