@@ -14,6 +14,7 @@ const Empty = () => {
           padding: "50px 10px",
         },
       }}
+      elevation={0}
     >
       <NoteAdd color="primary" sx={{ fontSize: "5em" }} />
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>
