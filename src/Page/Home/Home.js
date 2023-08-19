@@ -17,7 +17,7 @@ const Home = () => {
       <Box className="home-page-sheets-upload-container">
         <Box className="home-page-sheets-upload-icon">
           <BackupTable color="primary" />
-          <Typography variant="h6" sx={{ ml: "5px" }}>
+          <Typography variant="h6" sx={{ ml: "5px", fontWeight: "bolder" }}>
             Sheets
           </Typography>
         </Box>
