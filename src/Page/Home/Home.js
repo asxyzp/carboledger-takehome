@@ -1,10 +1,9 @@
 // IMPORTING PACKAGES/MODULES
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import Button from "../../Component/Button/Button";
-import { BackupTable, NoteAdd } from "@mui/icons-material";
+import { BackupTable } from "@mui/icons-material";
 import "./home.css";
-import Card from "../../Component/Card/Card";
 import SheetsCell from "../../Cell/SheetsCell";
 
 const Home = () => {
