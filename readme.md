@@ -20,3 +20,7 @@ You are tasked to build a user interface for a carbon emissions data management 
 - Your frontend should be built using React.js.
 - You may use a state management library if necessary.
 - Your application should follow responsive design principles and work on various screen sizes.
+
+## Development Logs
+
+> Read the development logs noting down the process for development of this application in the files `/notes/process-log.md`.
