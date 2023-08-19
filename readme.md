@@ -23,9 +23,7 @@ The task is to build a user interface for a carbon emissions data management app
 
 ## Development Logs
 
-```
-Read the development logs noting down the process for development of this application in the files `/notes/process-log.md`.
-```
+> Read the development logs noting down the process for development of this application in the files `/notes/process-log.md`.
 
 ## Technology Stack
 
