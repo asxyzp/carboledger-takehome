@@ -36,38 +36,38 @@ const Empty = () => {
   );
 };
 
-const Loading = () => {
-  // SETTING MEDIA QUERY
-  const isMobileMode = useMediaQuery("(max-width: 650px)");
+// const Loading = () => {
+//   // SETTING MEDIA QUERY
+//   const isMobileMode = useMediaQuery("(max-width: 650px)");
 
-  return (
-    <Card
-      sx={{
-        "&.MuiCard-root": {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "50px 10px",
-          borderRadius: "15px",
-        },
-        "& .sheet-cell-img": {
-          width: isMobileMode ? "50%" : "20%",
-          marginBottom: "15px",
-        },
-      }}
-      elevation={3}
-    >
-      <img src={LoadingImg} alt="Empty" className="sheet-cell-img" />
-      <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-        Looking for sheets
-      </Typography>
-      <Typography variant="body2" sx={{ textAlign: "center" }}>
-        Searching through the database
-      </Typography>
-    </Card>
-  );
-};
+//   return (
+//     <Card
+//       sx={{
+//         "&.MuiCard-root": {
+//           display: "flex",
+//           flexDirection: "column",
+//           justifyContent: "center",
+//           alignItems: "center",
+//           padding: "50px 10px",
+//           borderRadius: "15px",
+//         },
+//         "& .sheet-cell-img": {
+//           width: isMobileMode ? "50%" : "20%",
+//           marginBottom: "15px",
+//         },
+//       }}
+//       elevation={3}
+//     >
+//       <img src={LoadingImg} alt="Empty" className="sheet-cell-img" />
+//       <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+//         Looking for sheets
+//       </Typography>
+//       <Typography variant="body2" sx={{ textAlign: "center" }}>
+//         Searching through the database
+//       </Typography>
+//     </Card>
+//   );
+// };
 
 const SheetsCell = () => {
   return <Empty />;
