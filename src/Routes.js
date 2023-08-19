@@ -8,21 +8,27 @@ import { DarkMode, LightMode } from "./Style/Themes";
 import { CssBaseline } from "@mui/material";
 import { NavigationLayout } from "./Layout/NavigationLayout/NavigationLayout";
 import ModalRouter from "./Component/ModalRouter/ModalRouter";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Home from "./Page/Home/Home";
 
 const Routes = () => {
   // GETTING ATOMIC STATES
   const [isDarkMode] = useRecoilState(DarkModeAtom);
+
+  // CREATING ROUTER
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+    },
+  ]);
 
   return (
     <ThemeProvider theme={isDarkMode ? DarkMode : LightMode}>
       <CssBaseline />
       <ModalRouter />
       <NavigationLayout>
-        loIncididunt deserunt do id voluptate fugiat occaecat fugiat nisi non
-        duis amet amet voluptate labore. Quis sit ad veniam irure consectetur
-        sit voluptate fugiat aute nostrud nisi sunt. Veniam reprehenderit aliqua
-        officia aliqua mollit ut est. Incididunt enim do culpa cupidatat
-        exercitation est eu.
+        <RouterProvider router={router} />
       </NavigationLayout>
     </ThemeProvider>
   );
