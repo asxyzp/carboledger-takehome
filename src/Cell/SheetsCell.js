@@ -1,8 +1,11 @@
-import { NoteAdd } from "@mui/icons-material";
-import { Card, Typography } from "@mui/material";
+import { Card, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
+import EmptyImg from "../Assets/empty.svg";
 
 const Empty = () => {
+  // SETTING MEDIA QUERY
+  const isMobileMode = useMediaQuery("(max-width: 650px)");
+
   return (
     <Card
       sx={{
@@ -12,11 +15,16 @@ const Empty = () => {
           justifyContent: "center",
           alignItems: "center",
           padding: "50px 10px",
+          borderRadius: "15px",
+        },
+        "& .empty-sheet-img": {
+          width: isMobileMode ? "50%" : "20%",
+          marginBottom: "10px",
         },
       }}
-      elevation={0}
+      elevation={3}
     >
-      <NoteAdd color="primary" sx={{ fontSize: "5em" }} />
+      <img src={EmptyImg} alt="Empty" className="empty-sheet-img" />
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>
         No sheets found
       </Typography>
