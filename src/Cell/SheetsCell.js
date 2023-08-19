@@ -1,7 +1,7 @@
 import { Card, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import EmptyImg from "../Assets/empty.svg";
-import LoadingImg from "../Assets/loading.svg";
+// import LoadingImg from "../Assets/loading.svg";
 
 const Empty = () => {
   // SETTING MEDIA QUERY
