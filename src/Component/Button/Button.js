@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 // CUSTOM COMPONENTS
 // CUSTOM BUTTON COMPONENT
 const CustomButton = styled(MuiButton)(({ theme }) => ({
-  borderRadius: "9999px",
+  borderRadius: "10px",
   textTransform: "none",
 
   // MARGIN STYLES
@@ -15,19 +15,19 @@ const CustomButton = styled(MuiButton)(({ theme }) => ({
 
   // CONTAINED STYLES
   "&.MuiButton-containedPrimary": {
-    background: `linear-gradient(to top, ${theme.palette.primary.dark}, ${theme.palette.primary.main}, ${theme.palette.primary.main})`,
+    background: `linear-gradient(to top, ${theme.palette.primary.light}, ${theme.palette.primary.main}, ${theme.palette.primary.main})`,
   },
   "&.MuiButton-containedSecondary": {
-    background: `linear-gradient(to top, ${theme.palette.secondary.dark}, ${theme.palette.secondary.main}, ${theme.palette.secondary.main})`,
+    background: `linear-gradient(to top, ${theme.palette.secondary.light}, ${theme.palette.secondary.main}, ${theme.palette.secondary.main})`,
   },
   "&.MuiButton-containedError": {
-    background: `linear-gradient(to top, ${theme.palette.error.dark}, ${theme.palette.error.main}, ${theme.palette.error.main})`,
+    background: `linear-gradient(to top, ${theme.palette.error.light}, ${theme.palette.error.main}, ${theme.palette.error.main})`,
   },
   "&.MuiButton-containedSuccess": {
-    background: `linear-gradient(to top, ${theme.palette.success.dark}, ${theme.palette.success.main}, ${theme.palette.success.main})`,
+    background: `linear-gradient(to top, ${theme.palette.success.light}, ${theme.palette.success.main}, ${theme.palette.success.main})`,
   },
   "&.MuiButton-containedInfo": {
-    background: `linear-gradient(to top, ${theme.palette.info.dark}, ${theme.palette.info.main}, ${theme.palette.info.main})`,
+    background: `linear-gradient(to top, ${theme.palette.info.light}, ${theme.palette.info.main}, ${theme.palette.info.main})`,
   },
 
   // CONTAINED HOVER STYLES
