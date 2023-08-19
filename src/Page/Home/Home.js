@@ -9,9 +9,8 @@ import SheetsCell from "../../Cell/SheetsCell";
 const Home = () => {
   return (
     <Box className="home-page">
-      <Typography className="home-page-title">
-        Upload the relevant spreadsheet file and explore the carbon emission
-        data
+      <Typography variant="body2" className="home-page-title">
+        Carbon Emission Data Management Application
       </Typography>
 
       <Box className="home-page-sheets-upload-container">
