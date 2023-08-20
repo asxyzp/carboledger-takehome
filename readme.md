@@ -64,3 +64,24 @@ State Management: Recoil.js - https://recoiljs.org/
 Components/Styling: Material UI (MUI) - https://mui.com/
 Routing: React Router DOM - https://reactrouter.com/en/main
 ```
+
+### Test Files
+
+There's a folder called `./test_files`, which contains three test files, showing three different conditions:
+
+```
+purchase_data.xlsx       # Correct File
+purchase_data_err1.xlsx  # Empty File
+purchase_data_err2.xlsx  # File with missing columns
+```
+
+### Error Handling
+
+As mentioned above, this application handles two cases for handling errors:
+
+1. Empty file (with zero or one rows).
+2. Missing column values
+
+### Further Improvements
+
+I wanted to add some persistence to the application using an IndexedDB-based wrapper, like Localbase, but I decided not to pursue it, due to the limited time at hand. Adding a layer of persistence would allow users to not upload the spreadhsheet, everytime the page is reloaded. Moreover, large amounts of data should not be added to the state stores, also because querying data from an IndexedDB-based wrapper is quite easy.
