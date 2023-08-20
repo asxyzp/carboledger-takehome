@@ -82,6 +82,12 @@ As mentioned above, this application handles two cases for handling errors:
 1. Empty file (with zero or one rows).
 2. Missing column values
 
+## Fully Responsive
+
+Works flawlessly, on all devices
+
+![Responsive](https://i.ibb.co/Nt8D59Q/Untitled.png)
+
 ### Further Improvements
 
 I wanted to add some persistence to the application using an IndexedDB-based wrapper, like Localbase, but I decided not to pursue it, due to the limited time at hand. Adding a layer of persistence would allow users to not upload the spreadhsheet, everytime the page is reloaded. Moreover, large amounts of data should not be added to the state stores, also because querying data from an IndexedDB-based wrapper is quite easy.
