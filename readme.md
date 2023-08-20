@@ -37,8 +37,10 @@ npm run start                                                                   
 ```
 /notes
     /process-log.md     # Development logs
-/public                 # Static assets
+/public                 # Static assets (index.html, manifest.json)
 /src
+    /Assets             # Static assets (images)
+    /Cell               # Data Fetching Components
     /Component          # Individual Components
     /Context            # Context/State Management
     /Layout             # Application Layout Components
@@ -60,3 +62,5 @@ State Management: Recoil.js - https://recoiljs.org/
 Components/Styling: Material UI (MUI) - https://mui.com/
 Data Storage: TinyBase - https://tinybase.org/ (IndexedDB-based storage)
 ```
+
+### Notes
