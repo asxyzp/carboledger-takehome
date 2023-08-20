@@ -10,6 +10,14 @@ code {
 }
 
 /* LOGO STYLES */
+.logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.logo-container > .logo {
+  margin-right: 5px;
+}
 .logo {
   border-radius: 40%;
   background-color: orangered;

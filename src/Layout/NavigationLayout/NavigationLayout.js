@@ -3,12 +3,13 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import "./navigationLayout.css";
 import IconButton from "../../Component/IconButton/IconButton";
-import { DarkModeAtom } from "../../Context/atoms";
+import { DarkModeAtom, ModalTypeAtom } from "../../Context/atoms";
 import { useRecoilState } from "recoil";
 import { DarkMode, Info, LightMode } from "@mui/icons-material";
 
 export const NavigationLayout = ({ children }) => {
   // GETTING ATOMIC STATES
+  const [modalType, setModalType] = useRecoilState(ModalTypeAtom);
   const [isDarkMode, toggleThemeMode] = useRecoilState(DarkModeAtom);
 
   // METHODS
@@ -19,10 +20,17 @@ export const NavigationLayout = ({ children }) => {
    */
   const toggleTheme = () => toggleThemeMode(!isDarkMode);
 
+  /**
+   * @name openInfoModal
+   * @description METHOD TO OPEN INFO MODAL
+   * @returns {undefined} undefined
+   */
+  const openInfoModal = () => setModalType("info");
+
   return (
     <Box className="navigation-layout">
       <Box className="navigation-layout-header">
-        <Box className="navigation-layout-logo-container">
+        <Box className="logo-container">
           <Box
             className="logo logo-lg"
             sx={(theme) => {
@@ -40,7 +48,7 @@ export const NavigationLayout = ({ children }) => {
         <Box className="navigation-layout-actions-container">
           <Box sx={{ mr: "5px" }}>
             <IconButton>
-              <Info fontSize="medium" />
+              <Info fontSize="medium" onClick={openInfoModal} />
             </IconButton>
           </Box>
           <IconButton onClick={toggleTheme}>
