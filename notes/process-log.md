@@ -24,3 +24,4 @@ Condidering the context, detailed requirements, and technical requirements, thes
 
 - Added different state components: Loading, Error, Empty, etc.
 - Adding setup instructions in readme file.
+- Looking into the TinyBase docs about storage creation, pagination, etc.
