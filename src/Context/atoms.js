@@ -12,3 +12,9 @@ export const ModalTypeAtom = atom({
   key: "modalModeAtom",
   default: "",
 });
+
+// STORING SHEET DATA
+export const SheetAtom = atom({
+  key: "sheetAtom",
+  default: null,
+});
