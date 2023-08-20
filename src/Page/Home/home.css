@@ -1,10 +1,10 @@
-.home-page-sheets-upload-container {
+.home-page-sheet-upload-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 10px 0px 15px;
 }
-.home-page-sheets-upload-icon {
+.home-page-sheet-upload-icon {
   display: flex;
   justify-content: flex-start;
   align-items: center;
