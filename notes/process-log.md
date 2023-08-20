@@ -12,10 +12,15 @@ Condidering the context, detailed requirements, and technical requirements, thes
 - Selecting appropriate theme for CarbonEx UI using [MUI theme creator tool](https://zenoo.github.io/mui-theme-creator/).
 - Setting up MUI Theme for the application.
 
-## Log 2 (Augusr 20, 00:51)
+## Log 2 (August 20, 00:51)
 
 - Testing the MUI theme.
 - Setting up Recoil.js: Adding <RecoilRoot></RecoilRoot> to wrap <Routes.js> & theme atom to `/src/Context/atoms.js`.
 - Setting up Navigation layout.
 - Importing Button & IconButton components.
 - Creating Modal & ModalRouter components.
+
+## Log 3 (August 20, 11:36)
+
+- Added different state components: Loading, Error, Empty, etc.
+- Adding setup instructions in readme file.

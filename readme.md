@@ -23,6 +23,15 @@ The task is to build a user interface for a carbon emissions data management app
 
 ## Repository Info
 
+### Setup Instructions
+
+```
+git clone https://github.com/asxyzp/carboledger-takehome.git carbonex           # Cloning the repository
+cd ./carbonex
+npm install                                                                     # Installing the dependencies
+npm run start                                                                   # Starting the development server (open it in localhost:3000)
+```
+
 ### File Structure
 
 ```
