@@ -9,19 +9,23 @@ import ErrorImg from "../Asset/error.svg";
 const CustomCard = ({ children }) => {
   return (
     <Card
-      sx={{
-        "&.MuiCard-root": {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "50px 10px",
-          borderRadius: "15px",
-        },
-        "& .sheet-cell-img": {
-          width: "250px",
-          marginBottom: "10px",
-        },
+      sx={(theme) => {
+        return {
+          "&.MuiCard-root": {
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "50px 10px",
+            borderRadius: "15px",
+            minHeight: "60vh",
+            border: `1px solid ${theme.palette.divider}`,
+          },
+          "& .sheet-cell-img": {
+            width: "250px",
+            marginBottom: "10px",
+          },
+        };
       }}
       elevation={3}
     >
@@ -51,9 +55,12 @@ const Loading = () => {
   return (
     <Skeleton
       variant="rectangular"
-      sx={{
-        borderRadius: "15px",
-        height: "330px",
+      sx={(theme) => {
+        return {
+          borderRadius: "15px",
+          height: "60vh",
+          border: `1px solid ${theme.palette.divider}`,
+        };
       }}
     />
   );
@@ -75,7 +82,7 @@ const Error = () => {
 };
 
 const SheetsCell = () => {
-  return <Error />;
+  return <Loading />;
 };
 
 export default SheetsCell;

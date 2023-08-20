@@ -21,6 +21,7 @@ const CustomModal = styled(MuiModal)(({ theme }) => ({
     padding: "25px",
     borderRadius: "10px",
     background: theme.palette.background.paper,
+    border: `1px solid ${theme.palette.divider}`,
   },
 }));
 
