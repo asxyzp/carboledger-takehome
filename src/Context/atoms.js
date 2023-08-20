@@ -4,7 +4,7 @@ import { atom } from "recoil";
 // STORING DARK MODE INFORMATION
 export const DarkModeAtom = atom({
   key: "darkModeAtom",
-  default: false,
+  default: true,
 });
 
 // STORING MODAL TYPE INFORMATION
