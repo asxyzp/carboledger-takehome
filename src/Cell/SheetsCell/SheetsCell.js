@@ -1,12 +1,15 @@
 // IMPORTING PACKAGES/MODULES
-import { Card, Skeleton, Typography } from "@mui/material";
+import { Card, Skeleton, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
-import EmptyImg from "../Asset/empty.svg";
-import ErrorImg from "../Asset/error.svg";
+import EmptyImg from "../../Asset/empty.svg";
+import ErrorImg from "../../Asset/error.svg";
 
 // CUSTOM COMPONENTS
 // CUSTOM CARD COMPONENT
-const CustomCard = ({ children }) => {
+export const StateCard = ({ children }) => {
+  // SETTING MEDIA QUERY
+  const isMobileMode = useMediaQuery("(max-width: 600px)");
+
   return (
     <Card
       sx={(theme) => {
@@ -18,11 +21,11 @@ const CustomCard = ({ children }) => {
             alignItems: "center",
             padding: "50px 10px",
             borderRadius: "15px",
-            minHeight: "60vh",
+            minHeight: "75vh",
             border: `1px solid ${theme.palette.divider}`,
           },
           "& .sheet-cell-img": {
-            width: "250px",
+            width: isMobileMode ? "300px" : "400px",
             marginBottom: "10px",
           },
         };
@@ -38,7 +41,7 @@ const CustomCard = ({ children }) => {
 // EMPTY STATE COMPONENT
 const Empty = () => {
   return (
-    <CustomCard>
+    <StateCard>
       <img src={EmptyImg} alt="Empty" className="sheet-cell-img" />
       <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center" }}>
         No sheets found
@@ -46,7 +49,7 @@ const Empty = () => {
       <Typography variant="body2" sx={{ textAlign: "center" }}>
         Please upload the spreadsheet file (.xlsx)
       </Typography>
-    </CustomCard>
+    </StateCard>
   );
 };
 
@@ -58,7 +61,7 @@ const Loading = () => {
       sx={(theme) => {
         return {
           borderRadius: "15px",
-          height: "60vh",
+          height: "75vh",
           border: `1px solid ${theme.palette.divider}`,
         };
       }}
@@ -69,7 +72,7 @@ const Loading = () => {
 // ERROR STATE COMPONENT
 const Error = () => {
   return (
-    <CustomCard>
+    <StateCard>
       <img src={ErrorImg} alt="Empty" className="sheet-cell-img" />
       <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center" }}>
         Something went wrong
@@ -77,12 +80,12 @@ const Error = () => {
       <Typography variant="body2" sx={{ textAlign: "center" }}>
         Apparently we can't load the sheets
       </Typography>
-    </CustomCard>
+    </StateCard>
   );
 };
 
 const SheetsCell = () => {
-  return <Loading />;
+  return <Empty />;
 };
 
 export default SheetsCell;
