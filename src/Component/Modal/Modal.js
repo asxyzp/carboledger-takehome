@@ -14,8 +14,7 @@ const CustomModal = styled(MuiModal)(({ theme }) => ({
     backdropFilter: "blur(10px)",
   },
   "& .modal-container": {
-    minWidth: "400px",
-    maxWidth: "400px",
+    maxWidth: "350px",
     marginLeft: "auto",
     marginRight: "auto",
     padding: "25px",
