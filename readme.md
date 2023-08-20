@@ -40,7 +40,7 @@ npm run start                                                                   
 /public                 # Static assets (index.html, manifest.json)
 /src
     /Assets             # Static assets (images)
-    /Cell               # Data Fetching Components
+    /Cell               # Data Fetching Components (Abstraction-wise)
     /Component          # Individual Components
     /Context            # Context/State Management
     /Layout             # Application Layout Components
@@ -61,7 +61,4 @@ Framework: React.js
 State Management: Recoil.js - https://recoiljs.org/
 Components/Styling: Material UI (MUI) - https://mui.com/
 Routing: React Router DOM - https://reactrouter.com/en/main
-Data Storage: TinyBase - https://tinybase.org/ (IndexedDB-based storage)
 ```
-
-### Notes
