@@ -47,8 +47,8 @@ export const NavigationLayout = ({ children }) => {
         </Box>
         <Box className="navigation-layout-actions-container">
           <Box sx={{ mr: "5px" }}>
-            <IconButton>
-              <Info fontSize="medium" onClick={openInfoModal} />
+            <IconButton onClick={openInfoModal}>
+              <Info fontSize="medium" />
             </IconButton>
           </Box>
           <IconButton onClick={toggleTheme}>
