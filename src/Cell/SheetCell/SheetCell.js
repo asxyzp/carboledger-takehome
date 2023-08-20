@@ -97,6 +97,66 @@ export const LinearProgress = styled(MuiLinearProgress)(() => ({
   },
 }));
 
+// CUSTOM COMPONENT TO HANDLE PAGINATION
+const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange }) => {
+  // METHODS
+  /**
+   * @name handleFirstPageButtonClick
+   * @description METHOD TO HANDLE FIRST PAGE BUTTON CLICK
+   * @param {*} event EVENT OBJECT
+   * @returns {undefined} N/A
+   */
+  const handleFirstPageButtonClick = (event) => onPageChange(event, 0);
+
+  /**
+   * @name handleBackButtonClick
+   * @description METHOD TO HANDLE BACK BUTTON CLICK
+   * @param {*} event EVENT OBJECT
+   * @returns {undefined} N/A
+   */
+  const handleBackButtonClick = (event) => onPageChange(event, page - 1);
+
+  /**
+   * @name handleNextButtonClick
+   * @description METHOD TO HANDLE NEXT BUTTON CLICK
+   * @param {*} event EVENT OBJECT
+   * @returns {undefined} N/A
+   */
+  const handleNextButtonClick = (event) => onPageChange(event, page + 1);
+
+  /**
+   * @name handleFirstPageButtonClick
+   * @description METHOD TO HANDLE LAST PAGE BUTTON CLICK
+   * @param {*} event EVENT OBJECT
+   * @returns {undefined} N/A
+   */
+  const handleLastPageButtonClick = (event) =>
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+
+  return (
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0}>
+        <FirstPage />
+      </IconButton>
+      <IconButton onClick={handleBackButtonClick} disabled={page === 0}>
+        <KeyboardArrowLeft />
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+      >
+        <KeyboardArrowRight />
+      </IconButton>
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+      >
+        <LastPage />
+      </IconButton>
+    </Box>
+  );
+};
+
 // STATE COMPONENTS
 // EMPTY STATE COMPONENT
 const Empty = () => {
@@ -184,70 +244,33 @@ const Error = ({ error }) => {
   );
 };
 
-function TablePaginationActions(props) {
-  const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
-  const handleFirstPageButtonClick = (event) => onPageChange(event, 0);
-  const handleBackButtonClick = (event) => onPageChange(event, page - 1);
-  const handleNextButtonClick = (event) => onPageChange(event, page + 1);
-  const handleLastPageButtonClick = (event) =>
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-
-  return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page"
-      >
-        {theme.direction === "rtl" ? <LastPage /> : <FirstPage />}
-      </IconButton>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page"
-      >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowRight />
-        ) : (
-          <KeyboardArrowLeft />
-        )}
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowLeft />
-        ) : (
-          <KeyboardArrowRight />
-        )}
-      </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
-        {theme.direction === "rtl" ? <FirstPage /> : <LastPage />}
-      </IconButton>
-    </Box>
-  );
-}
-
 const Success = ({ sheet }) => {
+  // SETTING LOCAL STATES
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
+  // SETTING LOCAL VARIABLES
+  // AVOIDING LAYOUT JUMP AT THE END
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - sheet.data.length) : 0;
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // METHODS
+  /**
+   * @name setChangePage
+   * @description METHOD TO CHANGE PAGE VALUE
+   * @param {*} event EVENT OBJECT
+   * @param {*} newPage NEW PAGE NO.
+   * @returns {undefined} N/A
+   */
+  const setChangePage = (event, newPage) => setPage(newPage);
 
-  const handleChangeRowsPerPage = (event) => {
+  /**
+   * @name setChangePageRows
+   * @description METHOD TO CHANGE PAGE ROW VALUE
+   * @param {*} event EVENT OBJECT
+   * @returns {undefined} N/A
+   */
+  const setChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -265,6 +288,7 @@ const Success = ({ sheet }) => {
           </TableRow>
         </TableHead>
         <TableBody>
+          {/* SELECTING 10 ROWS PER PAGE */}
           {(rowsPerPage > 0
             ? sheet.data
                 .slice(1)
@@ -303,21 +327,14 @@ const Success = ({ sheet }) => {
                 },
                 native: true,
               }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
+              onPageChange={setChangePage}
+              onRowsPerPageChange={setChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
         </TableFooter>
       </Table>
     </TableContainer>
-
-    // <>
-    //   {sheet &&
-    //     sheet.data.map((sheetDataElement) => {
-    //       return sheetDataElement.companyName;
-    //     })}
-    // </>
   );
 };
 
