@@ -54,12 +54,13 @@ npm run start                                                                   
 
 ### Technology Stack
 
----
+Frameworks, libraries and technologies used to build the application:
 
 ```
 Framework: React.js
 State Management: Recoil.js - https://recoiljs.org/
 Components/Styling: Material UI (MUI) - https://mui.com/
+Routing: React Router DOM - https://reactrouter.com/en/main
 Data Storage: TinyBase - https://tinybase.org/ (IndexedDB-based storage)
 ```
 
