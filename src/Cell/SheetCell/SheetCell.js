@@ -6,11 +6,28 @@ import {
   LinearProgress as MuiLinearProgress,
   styled,
   useMediaQuery,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  TableFooter,
+  useTheme,
+  IconButton,
+  TablePagination,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ErrorImg from "../../Asset/error.svg";
 import EmptyImg from "../../Asset/empty.svg";
-import { Description } from "@mui/icons-material";
+import {
+  Description,
+  FirstPage,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  LastPage,
+} from "@mui/icons-material";
 
 // SETTING VARIABLE
 // STORING STEPS DATA
@@ -167,15 +184,140 @@ const Error = ({ error }) => {
   );
 };
 
-const Success = ({ sheet }) => {
-  // console.log(sheet, sheet.data);
+function TablePaginationActions(props) {
+  const theme = useTheme();
+  const { count, page, rowsPerPage, onPageChange } = props;
+  const handleFirstPageButtonClick = (event) => onPageChange(event, 0);
+  const handleBackButtonClick = (event) => onPageChange(event, page - 1);
+  const handleNextButtonClick = (event) => onPageChange(event, page + 1);
+  const handleLastPageButtonClick = (event) =>
+    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+
   return (
-    <>
-      {sheet &&
-        sheet.data.map((sheetDataElement) => {
-          return sheetDataElement.companyName;
-        })}
-    </>
+    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+      <IconButton
+        onClick={handleFirstPageButtonClick}
+        disabled={page === 0}
+        aria-label="first page"
+      >
+        {theme.direction === "rtl" ? <LastPage /> : <FirstPage />}
+      </IconButton>
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowRight />
+        ) : (
+          <KeyboardArrowLeft />
+        )}
+      </IconButton>
+      <IconButton
+        onClick={handleNextButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="next page"
+      >
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowLeft />
+        ) : (
+          <KeyboardArrowRight />
+        )}
+      </IconButton>
+      <IconButton
+        onClick={handleLastPageButtonClick}
+        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        aria-label="last page"
+      >
+        {theme.direction === "rtl" ? <FirstPage /> : <LastPage />}
+      </IconButton>
+    </Box>
+  );
+}
+
+const Success = ({ sheet }) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - sheet.data.length) : 0;
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  return (
+    <TableContainer component={Paper} sx={{ mb: "30px" }}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">Type of purchase</TableCell>
+            <TableCell align="center">Date of purchase</TableCell>
+            <TableCell align="center">Quantity</TableCell>
+            <TableCell align="center">Company name</TableCell>
+            <TableCell align="center">Emission factor</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {(rowsPerPage > 0
+            ? sheet.data
+                .slice(1)
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : sheet.data.slice(1)
+          ).map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.itemId}
+              </TableCell>
+              <TableCell align="center">{row.purchaseDate}</TableCell>
+              <TableCell align="center">{row.quantity}</TableCell>
+              <TableCell align="center">{row.companyName}</TableCell>
+              <TableCell align="center">{row.emissionFactor}</TableCell>
+            </TableRow>
+          ))}
+          {emptyRows > 0 && (
+            <TableRow style={{ height: 53 * emptyRows }}>
+              <TableCell colSpan={6} />
+            </TableRow>
+          )}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              colSpan={3}
+              count={sheet.data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              SelectProps={{
+                inputProps: {
+                  "aria-label": "rows per page",
+                },
+                native: true,
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </TableContainer>
+
+    // <>
+    //   {sheet &&
+    //     sheet.data.map((sheetDataElement) => {
+    //       return sheetDataElement.companyName;
+    //     })}
+    // </>
   );
 };
 
@@ -187,20 +329,26 @@ const SheetCell = ({ file, sheet, error }) => {
     console.log(file, loadingState);
   }, [file]);
 
-  if (file === null) return <Empty />;
-  if (error !== "")
+  // EMPTY STATE
+  if (file === null) {
+    return <Empty />;
+  }
+  // LOADING STATE => ERROR STATE
+  if (error !== "") {
     return loadingState ? (
       <Loading file={file} setLoadingState={setLoadingState} />
     ) : (
       <Error error={error} />
     );
-  if (sheet !== null)
+  }
+  // LOADING STATE => SUCCESS STATE
+  if (sheet !== null) {
     return loadingState ? (
       <Loading file={file} setLoadingState={setLoadingState} />
     ) : (
       <Success sheet={sheet} />
     );
-  // return <Loading file={file} />;
+  }
 };
 
 export default SheetCell;
