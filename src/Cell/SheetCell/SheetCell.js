@@ -339,6 +339,7 @@ const Success = ({ sheet }) => {
 };
 
 const SheetCell = ({ file, sheet, error }) => {
+  console.log(sheet);
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {

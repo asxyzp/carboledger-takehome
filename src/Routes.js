@@ -9,7 +9,9 @@ import { CssBaseline } from "@mui/material";
 import { NavigationLayout } from "./Layout/NavigationLayout/NavigationLayout";
 import ModalRouter from "./Component/ModalRouter/ModalRouter";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./Page/Home/Home";
+import HomePage from "./Page/HomePage/HomePage";
+import SheetsPage from "./Page/SheetsPage/SheetsPage";
+import SheetPage from "./Page/SheetPage/SheetPage";
 
 const Routes = () => {
   // GETTING ATOMIC STATES
@@ -19,7 +21,21 @@ const Routes = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: <HomePage />,
+    },
+    {
+      path: "/sheets",
+      element: <SheetsPage />,
+      loader: () => {
+        return { a: "a" };
+      },
+    },
+    {
+      path: "/sheets/:sheet_id",
+      element: <SheetPage />,
+      loader: () => {
+        return { b: "b" };
+      },
     },
   ]);
 

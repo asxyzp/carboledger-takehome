@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import Button from "../../Component/Button/Button";
 import { BackupTable } from "@mui/icons-material";
 import SheetCell from "../../Cell/SheetCell/SheetCell";
-import "./home.css";
 import { SheetAtom } from "../../Context/atoms";
 import { useRecoilState } from "recoil";
 import readXlsxFile from "read-excel-file";
+import "./homePage.css";
 
 const Home = () => {
   // SETTING LOCAL VARIABLES
@@ -100,7 +100,7 @@ const Home = () => {
         <Box className="home-page-sheet-upload-icon">
           <BackupTable color="primary" />
           <Typography variant="body1" sx={{ ml: "5px", fontWeight: "bolder" }}>
-            Sheet
+            Sheets
           </Typography>
         </Box>
         <Input
