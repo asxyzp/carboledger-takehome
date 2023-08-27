@@ -13,48 +13,24 @@ import HomePage from "./Page/HomePage/HomePage";
 import SheetsPage from "./Page/SheetsPage/SheetsPage";
 import SheetPage from "./Page/SheetPage/SheetPage";
 import { StateCard } from "./Component/StateCard/StateCard";
+import Localbase from "localbase";
+import { getSheet, getSheets } from "./Storage/storage";
 import ErrorImg from "./Asset/error.svg";
+import NotFoundImg from "./Asset/notfound.svg";
 
-// LOADER METHODS
-/**
- * @name getSheets
- * @description METHOD TO LOAD SHEETS DATA
- * @returns {Object} SheetsData
- */
-const getSheets = async () => {
-  return await new Promise((resolve) =>
-    setTimeout(() => {
-      resolve([1, 2, 3, 4]);
-    }, 500)
-  );
-};
-
-/**
- * @name getSheet
- * @description METHOD TO LOAD SHEET DATA
- * @returns {Object} SheetData
- */
-const getSheet = async (id) => {
-  return await new Promise((resolve) =>
-    setTimeout(() => {
-      resolve([4, 3, 2, 1]);
-    }, 500)
-  );
-};
+// INITIALISING STORAGE
+export const db = new Localbase("db");
 
 // CUSTOM COMPONENTS
 // ERROR COMPONENT
 export const Error = () => {
   return (
     <StateCard>
-      <img src={ErrorImg} alt="Empty" className="sheet-cell-img" />
-      <Typography variant="h4" sx={{ fontWeight: "bold", textAlign: "center" }}>
+      <img src={ErrorImg} alt="Empty" className="state-card-image" />
+      <Typography variant="h4" className="state-card-title">
         Whoops!
       </Typography>
-      <Typography
-        variant="body2"
-        sx={{ textAlign: "center", width: "60%", mt: "5px" }}
-      >
+      <Typography variant="body2" className="state-card-subtitle">
         Something went wrong. We couldn't load your data.
       </Typography>
     </StateCard>
@@ -80,6 +56,21 @@ export const Loading = () => {
   );
 };
 
+// 404 PAGE COMPONENT
+const NotFound = () => {
+  return (
+    <StateCard>
+      <img src={NotFoundImg} alt="Empty" className="state-card-image" />
+      <Typography variant="h4" className="state-card-title">
+        404
+      </Typography>
+      <Typography variant="body2" className="state-card-subtitle">
+        Whoops! It seems like we couldn't find your page.
+      </Typography>
+    </StateCard>
+  );
+};
+
 const Routes = () => {
   // GETTING ATOMIC STATES
   const [isDarkMode] = useRecoilState(DarkModeAtom);
@@ -101,6 +92,10 @@ const Routes = () => {
       element: <SheetPage />,
       loader: () => getSheet(),
       errorElement: <Error />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ]);
 
