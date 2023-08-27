@@ -35,7 +35,7 @@ const UploadContainer = styled(Box)(() => ({
 }));
 
 const SheetsPage = () => {
-  // GETTING LOADER DATA
+  // SETTING LOCAL STATES
   const [sheets, setSheets] = useState(useLoaderData());
 
   // METHODS

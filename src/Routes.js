@@ -90,7 +90,7 @@ const Routes = () => {
     {
       path: "/sheets/:sheet_id",
       element: <SheetPage />,
-      loader: () => getSheet(),
+      loader: (request) => getSheet(request?.params?.sheet_id),
       errorElement: <Error />,
     },
     {
