@@ -19,9 +19,18 @@ export const StateCard = ({ children }) => {
             minHeight: "75vh",
             border: `1px solid ${theme.palette.divider}`,
           },
-          "& .sheet-cell-img": {
+          "& .state-card-image": {
             width: isMobileMode ? "300px" : "400px",
             marginBottom: "10px",
+          },
+          "& .state-card-title": {
+            fontWeight: "bold",
+            textAlign: "center",
+          },
+          "& .state-card-subtitle": {
+            textAlign: "center",
+            width: "60%",
+            marginTop: "5px",
           },
         };
       }}
