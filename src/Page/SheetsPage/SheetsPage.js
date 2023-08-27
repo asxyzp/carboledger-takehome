@@ -56,7 +56,7 @@ const SheetsPage = () => {
   const handleFileChange = async (event) => {
     if (event.target.files.length > 0) {
       const promise = new Promise(async (resolve, reject) => {
-        // READING THE FILE
+        // STORING FILE DATA
         const file = event.target.files[0];
         const fileData = {
           id: uuidv4(),
@@ -66,6 +66,8 @@ const SheetsPage = () => {
           uploadAt: new Date().toISOString(),
           data: null,
         };
+
+        // READING FILE
         await readXlsxFile(file).then(async (rows) => {
           // CHECKING FOR ERRORS
           if (rows.length < 2) {
@@ -95,10 +97,7 @@ const SheetsPage = () => {
 
           // RESOLVING DATA
           fileData.data = data;
-
-          await createSheet(fileData).then(() => {
-            resolve(fileData);
-          });
+          resolve(fileData);
         });
       });
 
@@ -106,6 +105,7 @@ const SheetsPage = () => {
       toast.promise(promise, {
         loading: "Loading...",
         success: (sheet) => {
+          createSheet(sheet);
           setSheets([sheet, ...sheets]);
           return "Data has been added!";
         },
