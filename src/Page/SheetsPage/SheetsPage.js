@@ -1,10 +1,19 @@
+// IMPORTING MODULES/PACKAGES
 import React from "react";
-import { useLoaderData } from "react-router-dom";
-import SheetsCell from "../../Cell/SheetsCell/SheetsCell";
+import { Await, useLoaderData } from "react-router-dom";
+import Sheets from "../../Component/Sheets/Sheets/Sheets";
 
 const SheetsPage = () => {
   const sheets = useLoaderData();
-  return <SheetsCell sheets={sheets} />;
+
+  return (
+    <React.Suspense>
+      <Await
+        resolve={sheets}
+        children={(sheets) => <Sheets sheets={sheets} />}
+      />
+    </React.Suspense>
+  );
 };
 
 export default SheetsPage;
