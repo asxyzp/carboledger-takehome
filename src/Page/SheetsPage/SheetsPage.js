@@ -2,13 +2,34 @@
 import React, { useState } from "react";
 import { Await, useLoaderData } from "react-router-dom";
 import Sheets from "../../Component/Sheets/Sheets/Sheets";
-import { Box, Input, Typography } from "@mui/material";
+import { Box, Input, Typography, styled } from "@mui/material";
 import { BackupTable } from "@mui/icons-material";
-import { useRecoilState } from "recoil";
-import { SheetAtom } from "../../Context/atoms";
 import readXlsxFile from "read-excel-file";
 import Button from "../../Component/Button/Button";
-import "./sheetsPage.css";
+
+// CUSTOM COMPONENTS
+const UploadContainer = styled(Box)(() => ({
+  "&.MuiBox-root": {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: "10px 0px 15px",
+  },
+  "& .upload-icon": {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    height: "100%",
+  },
+  "& .upload-text": {
+    marginLeft: "5px",
+    fontWeight: "bolder",
+  },
+  "& .upload-input": {
+    visibility: "hidden",
+    width: "1px",
+  },
+}));
 
 const SheetsPage = () => {
   const sheets = useLoaderData();
@@ -16,9 +37,6 @@ const SheetsPage = () => {
   // SETTING LOCAL VARIABLES
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-
-  // GETTING ATOMIC STATES
-  const [sheet, setSheet] = useRecoilState(SheetAtom);
 
   // METHODS
   /**
@@ -52,7 +70,7 @@ const SheetsPage = () => {
    * @returns {undefined} N/A
    */
   const checkError = (rows) => {
-    // CHECKING SIZE
+    // CHECKING SHEET SIZE
     if (rows.length < 2) setError("It seems that the sheet is empty");
     else {
       // CHECKING THE NUMBER OF COLUMNS
@@ -86,7 +104,6 @@ const SheetsPage = () => {
             emissionFactor: row[7],
           };
         });
-        setSheet({ name: file?.name, size: file?.size, data });
       })
       .catch((error) => {
         setError(error.message);
@@ -95,16 +112,16 @@ const SheetsPage = () => {
 
   return (
     <React.Suspense>
-      <Box className="upload-container">
+      <UploadContainer>
         <Box className="upload-icon">
           <BackupTable color="primary" />
-          <Typography variant="body1" sx={{ ml: "5px", fontWeight: "bolder" }}>
+          <Typography variant="body1" className="upload-text">
             Sheets
           </Typography>
         </Box>
         <Input
           type="file"
-          sx={{ visibility: "hidden", width: "1px" }}
+          className="upload-input"
           onChange={handleFileChange}
           inputProps={{
             accept: ".xlsx",
@@ -118,7 +135,7 @@ const SheetsPage = () => {
         >
           Upload (.xlsx)
         </Button>
-      </Box>
+      </UploadContainer>
       <Await
         resolve={sheets}
         children={(sheets) => <Sheets sheets={sheets} />}
