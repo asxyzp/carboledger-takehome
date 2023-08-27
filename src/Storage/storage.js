@@ -44,4 +44,6 @@ export const getSheet = async (id) => {
  * @param {*} data SHEET DATA
  * @returns {*} SheetData
  */
-export const createSheet = async (data) => {};
+export const createSheet = async (data) => {
+  return await db.collection("sheets").add(data);
+};
