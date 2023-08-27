@@ -26,6 +26,12 @@ const DarkTheme = {
     h4: {
       fontFamily: "Paytone One",
     },
+    h5: {
+      fontFamily: "Paytone One",
+    },
+    h6: {
+      fontFamily: "Paytone One",
+    },
   },
 };
 
