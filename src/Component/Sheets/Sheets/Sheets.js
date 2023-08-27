@@ -15,7 +15,7 @@ import { BackupTable, MoreVert, Visibility } from "@mui/icons-material";
 import IconButton from "../../IconButton/IconButton";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Menu from "../../Menu/Menu";
 
 // INSTANTIATING TIME AGO DEFAULT LOCALE
@@ -86,11 +86,11 @@ const Data = ({ sheets }) => {
                     if (menuItem.label === "View")
                       return {
                         ...menuItem,
-                        onClick: () => {
-                          console.log("BOOBOO");
-                          navigate(`/sheets/${sheet.id}`);
-                        },
+                        onClick: () => navigate(`/sheets/${sheet.id}`),
                       };
+                    else {
+                      return <></>;
+                    }
                   })}
                   className="user-menu"
                 />
