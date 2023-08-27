@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "javascript-time-ago": "^2.5.9",
     "localbase": "^0.7.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
@@ -22,6 +23,7 @@
     "recoil": "^0.7.7",
     "sonner": "^0.7.0",
     "sort-by": "^1.2.0",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
