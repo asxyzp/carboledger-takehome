@@ -4,11 +4,12 @@ import { Await, useLoaderData } from "react-router-dom";
 import Sheet from "../../Component/Sheets/Sheet/Sheet";
 
 const SheetPage = () => {
+  // GETTING LOADER DATA
   const sheet = useLoaderData();
 
   return (
     <React.Suspense>
-      <Await resolve={sheet} children={(sheet) => <Sheet sheets={sheet} />} />
+      <Await resolve={sheet} children={(sheet) => <Sheet sheet={sheet} />} />
     </React.Suspense>
   );
 };

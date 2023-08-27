@@ -8,8 +8,11 @@ import { DarkMode, LightMode } from "./Style/Themes";
 import { CssBaseline, Skeleton, Typography } from "@mui/material";
 import { NavigationLayout } from "./Layout/NavigationLayout/NavigationLayout";
 import ModalRouter from "./Component/ModalRouter/ModalRouter";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import HomePage from "./Page/HomePage/HomePage";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  redirect,
+} from "react-router-dom";
 import SheetsPage from "./Page/SheetsPage/SheetsPage";
 import SheetPage from "./Page/SheetPage/SheetPage";
 import { StateCard } from "./Component/StateCard/StateCard";
@@ -79,7 +82,8 @@ const Routes = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage />,
+      element: <></>,
+      loader: () => redirect("/sheets"),
     },
     {
       path: "/sheets",
