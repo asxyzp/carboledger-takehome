@@ -6,6 +6,9 @@ import { Box, Input, Typography, styled } from "@mui/material";
 import { BackupTable } from "@mui/icons-material";
 import readXlsxFile from "read-excel-file";
 import Button from "../../Component/Button/Button";
+import { v4 as uuidv4 } from "uuid";
+import { Toaster, toast } from "sonner";
+import { createSheet } from "../../Storage/storage";
 
 // CUSTOM COMPONENTS
 const UploadContainer = styled(Box)(() => ({
@@ -32,11 +35,8 @@ const UploadContainer = styled(Box)(() => ({
 }));
 
 const SheetsPage = () => {
-  const sheets = useLoaderData();
-
-  // SETTING LOCAL VARIABLES
-  const [file, setFile] = useState(null);
-  const [error, setError] = useState("");
+  // GETTING LOADER DATA
+  const [sheets, setSheets] = useState(useLoaderData());
 
   // METHODS
   /**
@@ -44,11 +44,8 @@ const SheetsPage = () => {
    * @description EVENT HANDLER FOR UPLOAD BUTTON
    * @returns {undefined} N/A
    */
-  const handleClick = () => {
-    setFile(null);
-    setError("");
+  const handleClick = () =>
     document.querySelector("input[type='file']").click();
-  };
 
   /**
    * @name handleFileChange
@@ -56,59 +53,66 @@ const SheetsPage = () => {
    * @param {*} event EVENT OBJECT
    * @returns {undefined} N/A
    */
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     if (event.target.files.length > 0) {
-      setFile(event.target.files[0]);
-      parseFile(event.target.files[0]);
-    }
-  };
+      const promise = new Promise(async (resolve, reject) => {
+        // READING THE FILE
+        const file = event.target.files[0];
+        const fileData = {
+          id: uuidv4(),
+          fileName: file?.name,
+          fileSize: file?.size,
+          displayName: file?.name,
+          uploadAt: new Date().toISOString(),
+          data: null,
+        };
+        await readXlsxFile(file).then(async (rows) => {
+          // CHECKING FOR ERRORS
+          if (rows.length < 2) {
+            reject("It seems that the sheet is empty");
+          } else {
+            // CHECKING THE NUMBER OF COLUMNS
+            if (rows[0].length < 8) {
+              reject(
+                "It seems like you're missing one of the following columns: purchase id, date, item id, quantity, unit price, total price, supplier name or emission factor"
+              );
+            }
+          }
 
-  /**
-   * @name checkError
-   * @description METHOD TO CHECK ERROR
-   * @param {*} rows ROW DATA
-   * @returns {undefined} N/A
-   */
-  const checkError = (rows) => {
-    // CHECKING SHEET SIZE
-    if (rows.length < 2) setError("It seems that the sheet is empty");
-    else {
-      // CHECKING THE NUMBER OF COLUMNS
-      if (rows[0].length < 8) {
-        setError(
-          "It seems like you're missing one of the following columns: Purchase ID, Purchase Date, Item ID, Quantity, Unit Price, Total Price, Supplier Name or Emission Factor"
-        );
-      }
-    }
-  };
+          // PARSING FILE
+          const data = rows.map((row) => {
+            return {
+              purchaseId: row[0],
+              purchaseDate: row[1],
+              itemId: row[2],
+              quantity: row[3],
+              unitPrice: row[4],
+              totalPrice: row[5],
+              companyName: row[6],
+              emissionFactor: row[7],
+            };
+          });
 
-  /**
-   * @name parseFile
-   * @description METHOD TO PARSE FILE
-   * @param {*} file FILE OBJECT
-   * @returns {undefined} N/A
-   */
-  async function parseFile(file) {
-    await readXlsxFile(file)
-      .then((rows) => {
-        checkError(rows);
-        const data = rows.map((row) => {
-          return {
-            purchaseId: row[0],
-            purchaseDate: row[1],
-            itemId: row[2],
-            quantity: row[3],
-            unitPrice: row[4],
-            totalPrice: row[5],
-            companyName: row[6],
-            emissionFactor: row[7],
-          };
+          // RESOLVING DATA
+          fileData.data = data;
+
+          await createSheet(fileData).then(() => {
+            resolve(fileData);
+          });
         });
-      })
-      .catch((error) => {
-        setError(error.message);
       });
-  }
+
+      // SHOWING TOAST
+      toast.promise(promise, {
+        loading: "Loading...",
+        success: (sheet) => {
+          setSheets([sheet, ...sheets]);
+          return "Data has been added!";
+        },
+        error: (error) => error,
+      });
+    }
+  };
 
   return (
     <React.Suspense>
@@ -140,6 +144,7 @@ const SheetsPage = () => {
         resolve={sheets}
         children={(sheets) => <Sheets sheets={sheets} />}
       />
+      <Toaster />
     </React.Suspense>
   );
 };
