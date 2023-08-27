@@ -6,6 +6,7 @@ import IconButton from "../../Component/IconButton/IconButton";
 import { DarkModeAtom, ModalTypeAtom } from "../../Context/atoms";
 import { useRecoilState } from "recoil";
 import { DarkMode, Info, LightMode } from "@mui/icons-material";
+import { redirect } from "react-router-dom";
 
 export const NavigationLayout = ({ children }) => {
   // GETTING ATOMIC STATES
@@ -27,12 +28,19 @@ export const NavigationLayout = ({ children }) => {
    */
   const openInfoModal = () => setModalType("info");
 
+  /**
+   * @name navigateToHome
+   * @description METHOD TO OPEN HOME PAGE
+   * @returns {undefined} undefined
+   */
+  const navigateToHome = () => redirect("/");
+
   return (
     <Box className="navigation-layout">
       <Box className="navigation-layout-header">
         <Box className="logo-container">
           <Box
-            className="logo logo-lg"
+            className="logo logo-md"
             sx={(theme) => {
               return {
                 border: `3px solid ${
@@ -42,8 +50,9 @@ export const NavigationLayout = ({ children }) => {
                 }`,
               };
             }}
+            onClick={navigateToHome}
           ></Box>
-          <Typography variant="h4">CarbonEx</Typography>
+          <Typography variant="h5">CarbonEx</Typography>
         </Box>
         <Box className="navigation-layout-actions-container">
           <Box sx={{ mr: "5px" }}>
