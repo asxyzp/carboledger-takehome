@@ -80,8 +80,8 @@ purchase_data_err4.xlsx  # File with incorrect ordered or named columns
 
 ### New Updates
 
-- Ability to upload upload and view multiple spreadsheets.
-- Ability to access each spreadhsheet with a unique endpoint in the form `/sheets/{id}` where a unique `id` is assigned to each and every spreadsheet that is uploaded.
+- Ability to upload and view multiple spreadsheets.
+- Ability to access each spreadsheet with a unique endpoint in the form `/sheets/{id}` where a unique `id` is assigned to each and every spreadsheet that is uploaded.
 - Ability to persist spreadsheets locally through multiple sessions by using an IndexedDB based storage.
 - Ability to edit individual cell data for each spreadsheet.
 - Viewing upload status through a toast component.
