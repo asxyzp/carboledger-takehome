@@ -82,11 +82,6 @@ const Routes = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <></>,
-      loader: () => redirect("/sheets"),
-    },
-    {
-      path: "/sheets",
       element: <SheetsPage />,
       loader: () => getSheets(),
       errorElement: <Error />,

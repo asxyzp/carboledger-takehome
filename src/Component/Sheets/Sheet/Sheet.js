@@ -125,7 +125,7 @@ const Sheet = ({ sheet }) => {
   return (
     <Box>
       <Typography variant="h5">Explore sheet</Typography>
-      <MuiLink component={Link} to="/sheets" color="inherit">
+      <MuiLink component={Link} to="/" color="inherit">
         <Typography variant="body2">Go back</Typography>
       </MuiLink>
 
