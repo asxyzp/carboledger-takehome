@@ -82,7 +82,7 @@ const CustomButton = styled(MuiButton)(({ theme }) => ({
   // SIZE STYLES
   "&.MuiButton-sizeSmall": {
     padding: "10px 20px",
-    fontSize: "1.143rem",
+    fontSize: "0.95rem",
   },
   "&.MuiButton-sizeMedium": {
     padding: "15px 25px",
