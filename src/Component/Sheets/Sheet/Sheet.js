@@ -14,16 +14,19 @@ import {
   TableFooter,
   TablePagination,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import {
+  Edit,
   FirstPage,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   LastPage,
 } from "@mui/icons-material";
+import { useRecoilState } from "recoil";
+import { ModalTypeAtom, SharedDataAtom } from "../../../Context/atoms";
 
 // INSTANTIATING TIME AGO DEFAULT LOCALE
 TimeAgo.addDefaultLocale(en);
@@ -93,13 +96,20 @@ const TablePaginationActions = ({ count, page, rowsPerPage, onPageChange }) => {
 
 const Sheet = ({ sheet }) => {
   // SETTING LOCAL STATES
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [sheetData, setSheetData] = useState(sheet);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // GETTING ATOMIC STATES
+  const [modalType, setModalType] = useRecoilState(ModalTypeAtom);
+  const [sharedData, setSharedData] = useRecoilState(SharedDataAtom);
 
   // SETTING LOCAL VARIABLES
   // AVOIDING LAYOUT JUMP AT THE END
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - sheet.data.length) : 0;
+    page > 0
+      ? Math.max(0, (1 + page) * rowsPerPage - sheetData.data.length)
+      : 0;
 
   // METHODS
   /**
@@ -122,6 +132,20 @@ const Sheet = ({ sheet }) => {
     setPage(0);
   };
 
+  /**
+   * @name openSheetCellEditModal
+   * @description METHOD TO OPEN SHEET CELL EDIT MODAL
+   * @returns {undefined} undefined
+   */
+  const openSheetCellEditModal = (index) => {
+    setSharedData({
+      sheetData: sheetData,
+      setSheetData: setSheetData,
+      index: index,
+    });
+    setModalType("sheetcelledit");
+  };
+
   return (
     <Box>
       <Typography variant="h5">Explore sheet</Typography>
@@ -131,13 +155,14 @@ const Sheet = ({ sheet }) => {
 
       <Box sx={{ mt: "10px", mb: "15px" }}>
         <Typography variant="body1" sx={{ fontWeight: "bolder" }}>
-          {sheet.displayName}
+          {sheetData.displayName}
         </Typography>
         <Typography variant="body2">
-          Uploaded {timeAgo.format(new Date(sheet.uploadAt))}
+          Uploaded {timeAgo.format(new Date(sheetData.uploadAt))}
         </Typography>
         <Typography variant="body2">
-          {(sheet.fileSize / 1024).toFixed(2)} KB, {sheet.data.length - 1} rows
+          {(sheetData.fileSize / 1024).toFixed(2)} KB,{" "}
+          {sheetData.data.length - 1} rows
         </Typography>
       </Box>
 
@@ -153,18 +178,20 @@ const Sheet = ({ sheet }) => {
               <TableCell align="center">Quantity</TableCell>
               <TableCell align="center">Company name</TableCell>
               <TableCell align="center">Emission factor</TableCell>
+              <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {/* SELECTING 10 ROWS PER PAGE */}
             {(rowsPerPage > 0
-              ? sheet.data
+              ? sheetData.data
                   .slice(1)
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : sheet.data.slice(1)
-            ).map((row) => (
+              : sheetData.data.slice(1)
+            ).map((row, index) => (
               <TableRow
-                key={row.name}
+                key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
@@ -173,7 +200,14 @@ const Sheet = ({ sheet }) => {
                 <TableCell align="center">{row.purchaseDate}</TableCell>
                 <TableCell align="center">{row.quantity}</TableCell>
                 <TableCell align="center">{row.companyName}</TableCell>
-                <TableCell align="center">{row.emissionFactor}</TableCell>
+                <TableCell align="center">
+                  {row.emissionFactor ? row.emissionFactor : 0}
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton onClick={() => openSheetCellEditModal(index)}>
+                    <Edit />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
             {emptyRows > 0 && (
@@ -186,7 +220,7 @@ const Sheet = ({ sheet }) => {
             <TableRow>
               <TablePagination
                 colSpan={3}
-                count={sheet.data.length}
+                count={sheetData.data.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
