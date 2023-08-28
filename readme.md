@@ -42,7 +42,6 @@ npm run start                                                                   
 /public                 # Static assets (index.html, manifest.json)
 /src
     /Assets             # Static assets (images)
-    /Cell               # Data Fetching Components (Abstraction-wise)
     /Component          # Individual Components
     /Context            # Context/State Management
     /Layout             # Application Layout Components
@@ -61,8 +60,10 @@ Frameworks, libraries and technologies used to build the application:
 ```
 Framework: React.js
 State Management: Recoil.js - https://recoiljs.org/
-Components/Styling: Material UI (MUI) - https://mui.com/
-Routing: React Router DOM - https://reactrouter.com/en/main
+Components & Theming: Material UI (MUI) - https://mui.com/
+Client-Side Routing: React Router DOM - https://reactrouter.com/en/main
+Toast Component: Sonner - https://github.com/emilkowalski/sonner
+IndexedDB wrapper: Localbase - https://github.com/dannyconnell/localbase
 ```
 
 ### Test Files
@@ -73,21 +74,24 @@ There's a folder called `./test_files`, which contains three test files, showing
 purchase_data.xlsx       # Correct File
 purchase_data_err1.xlsx  # Empty File
 purchase_data_err2.xlsx  # File with missing columns
+purchase_data_err3.xlsx  # File with incorrect ordered or named columns
+purchase_data_err4.xlsx  # File with incorrect ordered or named columns
 ```
+
+### New Updates
+
+- Ability to upload upload and view multiple spreadsheets.
+- Ability to access each spreadhsheet with a unique endpoint in the form `/sheets/{id}` where a unique `id` is assigned to each and every spreadsheet that is uploaded.
+- Ability to persist spreadsheets locally through multiple sessions by using an IndexedDB based storage.
+- Ability to edit individual cell data for each spreadsheet.
+- Viewing upload status through a toast component.
+- Carbon emission column data defaults to 0, in case it's value is `null`.
+- Updated error handling (see below).
 
 ### Error Handling
 
 As mentioned above, this application handles two cases for handling errors:
 
-1. Empty file (with zero or one rows).
-2. Missing column values
-
-## Fully Responsive
-
-Works flawlessly, on all devices
-
-![Responsive](https://i.ibb.co/Nt8D59Q/Untitled.png)
-
-### Further Improvements
-
-I wanted to add some persistence to the application using an IndexedDB-based wrapper, like Localbase, but I decided not to pursue it, due to the limited time at hand. Adding a layer of persistence would allow users to not upload the spreadhsheet, everytime the page is reloaded. Moreover, large amounts of data should not be added to the state stores, also because querying data from an IndexedDB-based wrapper is quite easy.
+1. Checking for empty file.
+2. Checking for missing columns.
+3. Checking for name or order of columns.

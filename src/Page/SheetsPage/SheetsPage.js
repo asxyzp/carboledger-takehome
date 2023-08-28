@@ -74,9 +74,43 @@ const SheetsPage = () => {
             reject("It seems that the sheet is empty");
           } else {
             // CHECKING THE NUMBER OF COLUMNS
-            if (rows[0].length < 8) {
+            if (rows[0].length != 8) {
               reject(
                 "It seems like you're missing one of the following columns: purchase id, date, item id, quantity, unit price, total price, supplier name or emission factor"
+              );
+            }
+            // CHECKING THE ORDER OF ROWS
+            if (rows[0][0] === "Purchase ID") {
+              reject(
+                "Column order or name is incorrect. First column should be called 'Purchase ID'."
+              );
+            } else if (rows[0][1] === "Date") {
+              reject(
+                "Column order or name is incorrect. Second column should be called 'Date'."
+              );
+            } else if (rows[0][2] === "Item ID") {
+              reject(
+                "Column order or name is incorrect. Third column should be called 'Item ID'."
+              );
+            } else if (rows[0][3] === "Quantity") {
+              reject(
+                "Column order or name is incorrect. Fourth column should be called 'Quantity'."
+              );
+            } else if (rows[0][4] === "Unit Price") {
+              reject(
+                "Column order or name is incorrect. Fifth column should be called 'Unit Price'."
+              );
+            } else if (rows[0][5] === "Total Price") {
+              reject(
+                "Column order or name is incorrect. Sixth column should be called 'Total Price'."
+              );
+            } else if (rows[0][6] === "Supplier Name") {
+              reject(
+                "Column order or name is incorrect. Seventh column should be called 'Supplier Name'."
+              );
+            } else if (rows[0][7] === "Emission Factor") {
+              reject(
+                "Column order or name is incorrect. Eigth column should be called 'Emission Factor'."
               );
             }
           }
