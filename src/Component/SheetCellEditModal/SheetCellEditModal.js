@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import IconButton from "../IconButton/IconButton";
 import { Close, Edit } from "@mui/icons-material";
 import Input from "../Input/Input";
+import { editSheet } from "../../Storage/storage";
 
 const SheetCellEditModal = () => {
   // GETTING ATOMIC STATES
@@ -48,11 +49,22 @@ const SheetCellEditModal = () => {
       setFormState({ ...formState, emissionFactor: event.target.value });
   };
 
-  const editSheet = (event) => {
+  /**
+   * @name updateCell
+   * @description METHOD TO UPDATE CELL
+   * @param {*} event EVENT OBJECT
+   * @returns {undefined} undefined
+   */
+  const updateCell = async (event) => {
     event.preventDefault();
     sheetDataArray[index] = { ...sheetDataArray[index], ...formState };
     setSheetData({ ...sheetData, data: sheetDataArray });
-    setModalType("");
+    await editSheet(sheetData?.id, {
+      ...sheetData,
+      data: sheetDataArray,
+    }).then(() => {
+      setModalType("");
+    });
   };
 
   return (
@@ -69,7 +81,7 @@ const SheetCellEditModal = () => {
       <form
         className="modal-body"
         onChange={updateFormState}
-        onSubmit={editSheet}
+        onSubmit={updateCell}
       >
         <Input
           id="companyName"

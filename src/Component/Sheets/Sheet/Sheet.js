@@ -194,7 +194,7 @@ const Sheet = ({ sheet }) => {
                 key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell align="center" component="th" scope="row">
                   {row.itemId}
                 </TableCell>
                 <TableCell align="center">{row.purchaseDate}</TableCell>

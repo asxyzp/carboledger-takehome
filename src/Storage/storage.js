@@ -47,3 +47,14 @@ export const getSheet = async (id) => {
 export const createSheet = async (data) => {
   return await db.collection("sheets").add(data);
 };
+
+/**
+ * @name editSheet
+ * @description METHOD TO EDIT/UPDATE SHEET DATA
+ * @param {*} id SHEET ID
+ * @param {*} data SHEET DATA
+ * @returns {*} SheetData
+ */
+export const editSheet = async (id, data) => {
+  return await db.collection("sheets").doc({ id: id }).update(data);
+};
