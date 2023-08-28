@@ -13,8 +13,8 @@ export const ModalTypeAtom = atom({
   default: "",
 });
 
-// STORING SHEET DATA
-export const SheetAtom = atom({
-  key: "sheetAtom",
+// STORING DATA TO SHARED BETWEEN COMPONENTS SUCH AS MODAL AND OTHER COMPONENTS
+export const SharedDataAtom = atom({
+  key: "sharedDataAtom",
   default: null,
 });
