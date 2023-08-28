@@ -10,18 +10,7 @@ const InfoModal = () => {
   const [modalType, setModalType] = useRecoilState(ModalTypeAtom);
 
   return (
-    <Modal
-      open={modalType === "info"}
-      onClose={() => setModalType("")}
-      sx={{
-        "& .modal-container": {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        },
-      }}
-    >
+    <Modal open={modalType === "info"} onClose={() => setModalType("")}>
       <Box className="logo-container">
         <Box
           className="logo logo-lg"
@@ -45,7 +34,7 @@ const InfoModal = () => {
         variant="body2"
         sx={{
           mt: "5px",
-          mb: "10px",
+          mb: "15px",
           textAlign: "center",
           fontWeight: "bolder",
         }}

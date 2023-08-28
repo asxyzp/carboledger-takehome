@@ -14,13 +14,27 @@ const CustomModal = styled(MuiModal)(({ theme }) => ({
     backdropFilter: "blur(10px)",
   },
   "& .modal-container": {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "95%",
     maxWidth: "350px",
     marginLeft: "auto",
     marginRight: "auto",
-    padding: "25px",
+    padding: "10px",
     borderRadius: "10px",
     background: theme.palette.background.paper,
     border: `1px solid ${theme.palette.divider}`,
+  },
+  "& .modal-header": {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  "& .modal-body": {
+    width: "100%",
   },
 }));
 
