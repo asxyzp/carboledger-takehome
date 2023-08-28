@@ -86,7 +86,8 @@ purchase_data_err4.xlsx  # File with incorrect ordered or named columns
 - Ability to edit individual cell data for each spreadsheet.
 - Viewing upload status through a toast component.
 - Carbon emission column data defaults to 0, in case it's value is `null`.
-- Updated error handling (see below).
+- Updated error handling:
+  - Checking for name or order of columns.
 
 ### Error Handling
 
@@ -94,4 +95,4 @@ As mentioned above, this application handles two cases for handling errors:
 
 1. Checking for empty file.
 2. Checking for missing columns.
-3. Checking for name or order of columns.
+3. Checking for name or order of columns **[NEW]**.
